@@ -2276,7 +2276,7 @@ print('\n')
 opcion = '0'
 opciones = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 'Salir']
 # creamos una lista con los usuario y contraseñas que tendrán acceso a la información que entrega el programa
-users = [["usuario1", "project1"], ["usuario2", "science21"]]
+users = [["user", "project1"], ["admin", "science21"]]
 # se crean dos contadores iniciales
 c = 0
 j = 1

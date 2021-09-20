@@ -2274,7 +2274,7 @@ ventas_fecha.sort(key=ordenventas_mes)
 print('\n')
 # se inicializa una variable opcion y una lista con las posibles opciones para trabajar con el menú del programa
 opcion = '0'
-opciones = ['0', '1', '2', '3', '4', '5', '6', '7', '8', 'Salir']
+opciones = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',Salir']
 # creamos una lista con los usuario y contraseñas que tendrán acceso a la información que entrega el programa
 users = [["user", "project1"], ["admin", "science21"]]
 # se crean dos contadores iniciales
@@ -2474,6 +2474,16 @@ for user in users:
                         print(
                             f'{mes_mayor_venta} : {_mayor_venta:,.2f}'.format(
                                 _mayor_venta))
+            # se realiza una iteración de la lista producto_ventas para mostrar los artículos sin ventas pero con piezas en inventario. 
+            if opcion == '9':
+               print(f"Orden, Producto, Ventas, Búsquedas, stock")
+               producto_ventas.sort(key=ordVenta, )
+               productos_stock = producto_ventas[-96:]
+               for ps in productos_stock: 
+                   if ps[6] > 0 and ps[4] == 0:
+                      print(f'{j}, {ps[1]}, {ps[4]}, {ps[5]}, {ps[6]}')
+                      j += 1
+               j = 1
             # se realiza la opcion de salir del programa
             if opcion == 'Salir':
                 break

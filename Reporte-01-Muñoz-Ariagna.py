@@ -2267,14 +2267,17 @@ def ordenventas_mes(sub_li):
     i.sort(key=lambda x: x[1], reverse=True)
     return sub_li
 
-
 ventas_fecha.sort(key=ordenventas_mes)
+"""crear una lista que contenga la informacion de ventas y búsquedas por producto"""
+# se obtiene una lista independiente de productos_ventas para ordenas según la búsqueda
+venta_busqueda_total = producto_ventas[:96]
+
 """ Login y  Menú del programa"""
 
 print('\n')
 # se inicializa una variable opcion y una lista con las posibles opciones para trabajar con el menú del programa
 opcion = '0'
-opciones = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',Salir']
+opciones = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9',  '10','Salir']
 # creamos una lista con los usuario y contraseñas que tendrán acceso a la información que entrega el programa
 users = [["user", "project1"], ["admin", "science21"]]
 # se crean dos contadores iniciales
@@ -2324,6 +2327,8 @@ for user in users:
                     '6 - 10 productos con peores reseñas\n'
                     '7 - Ingresos totales de lifestore\n'
                     '8 - Ingresos totales, promedio mensual y meses con mayor venta por año\n'
+                    '9 - Productos sin ventas y sin  búsquedas en stock\n'
+                    '10 - Produtos más buscados con pocas ventas\n'
                     'Salir - Salir del programa\n')
                 # se declara cada resultado según la opción seleccionada
             if opcion == '1':
@@ -2358,8 +2363,7 @@ for user in users:
                 if categoria_menu not in range(1, 10):
                     print('Introduce una categoría válida: ')
                     continue
-                catname = menu_categorias(categoria_menu)
-                #
+                catname = menu_categorias(categoria_menu)                
                 while True:
                     if catname in lista_categorias:
                         # si la opción seleccionada es válida, se realiza una iteración de la lista para mostrar los 5 productos
@@ -2477,14 +2481,28 @@ for user in users:
             # se realiza una iteración de la lista producto_ventas para mostrar los artículos sin ventas pero con piezas en inventario. 
             if opcion == '9':
                print(f"Orden, Producto, Ventas, Búsquedas, stock")
-               producto_ventas.sort(key=ordVenta, )
-               productos_stock = producto_ventas[-96:]
-               for ps in productos_stock: 
-                   if ps[6] > 0 and ps[4] == 0:
+               venta_busqueda_total.sort(key=ordVenta)
+               for ps in venta_busqueda_total: 
+                   if ps[6] > 0  and ps[4] == 0 and ps[5] == 0:
                       print(f'{j}, {ps[1]}, {ps[4]}, {ps[5]}, {ps[6]}')
                       j += 1
                j = 1
-            # se realiza la opcion de salir del programa
+            # se realiza una iteración de la lista producto_ventas para mostrar el ingreso total por productos.                        
+            if opcion == '10':
+               total_stock = 0
+               ingresos_total = 0
+               print(f"Orden, Producto, Ventas, Búsquedas, Stock, Ingresos")
+               venta_busqueda_total.sort(key=ordBuscar, reverse = True)
+               producto_ingresos = venta_busqueda_total[:96]
+               for pi in producto_ingresos:
+                   p_ingreso = pi[4] * pi[3]
+                   if pi[5] > 0 and pi[4] < 10:
+                      print(f'{j}, {pi[1]}, {pi[4]}, {pi[5]}, {pi[6]}, {pi[3]}, {p_ingreso:,.2f}'.format(p_ingreso))
+                      j += 1
+                      total_stock += pi[6]
+               j = 1
+               print(f"Inventario total : {total_stock:,}")
+            # se declara la opcion de salir del programa
             if opcion == 'Salir':
                 break
             # Validar la entrada de opcion con la lista de opciones
